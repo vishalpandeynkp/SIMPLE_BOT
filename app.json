@@ -1,6 +1,6 @@
 {
-  "name": "Stats Telegram Bot",
-  "description": "A Telegram bot with user stats tracking.",
+  "name": "Stats Telegram Bot with Logs",
+  "description": "A Telegram bot with user stats tracking and private logs for new users.",
   "repository": "https://github.com/vishalpandeynkp/SIMPLE_BOT",
   "env": {
     "API_ID": {
@@ -17,6 +17,10 @@
     },
     "MONGO_URL": {
       "description": "Your MongoDB Connection URL",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "Your Telegram User ID (for private logs)",
       "required": true
     }
   }
