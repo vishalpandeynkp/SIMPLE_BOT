@@ -1,7 +1,7 @@
 {
   "name": "Stats Telegram Bot",
   "description": "A Telegram bot with user stats tracking.",
-  "repository": "https://github.com/yourusername/yourrepo",
+  "repository": "https://github.com/vishalpandeynkp/SIMPLE_BOT",
   "env": {
     "API_ID": {
       "description": "Your Telegram API ID",
