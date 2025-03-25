@@ -2,7 +2,7 @@ import os
 from pymongo import MongoClient
 
 # MongoDB Connection
-MONGO_URL = os.getenv("MONGO_URL", "your_mongo_url")
+MONGO_URL = os.getenv("MONGO_URL", "mongodb+srv://vishalpandeynkp:Bal6Y6FZeQeoAoqV@cluster0.dzgwt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 client = MongoClient(MONGO_URL)
 db = client["TelegramBot"]
 users_collection = db["Users"]
