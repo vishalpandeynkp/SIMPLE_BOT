@@ -1,18 +1,22 @@
 {
-  "name": "Simple Telegram Bot",
-  "description": "A simple Telegram bot with inline buttons.",
-  "repository": "https://github.com/vishalpandeynkp/SIMPLE_BOT",
+  "name": "Stats Telegram Bot",
+  "description": "A Telegram bot with user stats tracking.",
+  "repository": "https://github.com/yourusername/yourrepo",
   "env": {
     "API_ID": {
-      "description": "23961027",
+      "description": "Your Telegram API ID",
       "required": true
     },
     "API_HASH": {
-      "description": "f3add6d66bd20a3ae78e385e81f1df8a",
+      "description": "Your Telegram API Hash",
       "required": true
     },
     "BOT_TOKEN": {
-      "description": "7826130565:AAEwSSOuqvr3_w2RRxt52Tsm2SQ7MDsonHY",
+      "description": "Your Telegram Bot Token",
+      "required": true
+    },
+    "MONGO_URL": {
+      "description": "Your MongoDB Connection URL",
       "required": true
     }
   }
