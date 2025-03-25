@@ -27,7 +27,7 @@ def start(client, message):
     # Send private log to owner
     log_message = f"🆕 **New User Started the Bot**\n\n👤 Name: {first_name}\n🆔 User ID: `{user_id}`"
     if username:
-        log_message += f"\n📛 Username: @{username}"
+        log_message += f"\n📛 Username: @aaru_music_xRobot"
     client.send_message(OWNER_ID, log_message)
 
     # Send start message to user
