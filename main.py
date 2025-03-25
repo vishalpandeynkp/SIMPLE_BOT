@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 # Fetch credentials from environment variables
 API_ID = int(os.getenv("API_ID", "23961027"))
 API_HASH = os.getenv("API_HASH", "f3add6d66bd20a3ae78e385e81f1df8a")
-BOT_TOKEN = os.getenv("BOT_TOKEN", "7826130565:AAEwSSOuqvr3_w2RRxt52Tsm2SQ7MDsonHY)
+BOT_TOKEN = os.getenv("BOT_TOKEN", "7826130565:AAEwSSOuqvr3_w2RRxt52Tsm2SQ7MDsonHY")
 
 app = Client("heroku_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
