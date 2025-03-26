@@ -3,7 +3,7 @@ import os
 import requests
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from database import add_user, get_total_users
+from database import add_user, get_total_users, get_all_users  # get_all_users function import करो
 
 # Enable logging
 logging.basicConfig(level=logging.INFO)
@@ -35,10 +35,11 @@ def start(client, message):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("SEX HUB", url="https://t.me/+70o-6QJJdiRjYWI1")],
         [InlineKeyboardButton("INSTA VIRAL", url="https://t.me/+7lbq-sgx1WAwNzQ9")],
-        [InlineKeyboardButton("PAID DALAL", url=f"https://t.me/DADA_PROMO")]
+        [InlineKeyboardButton("PAID DALAL", url=f"https://t.me/DADA_PROMO")],
+        [InlineKeyboardButton("NOUGHTY SEX HUB", url="https://t.me/+t_lfHu4n7gUzZTU9")]
     ])
     message.reply_text(
-        "👋 Welcome to the bot!/n/ Bot clone ke liye ye command use kare /clone\n\nClick the buttons below to continue:",
+        "👋 Welcome to the bot!\n\nClick the buttons below to continue:",
         reply_markup=keyboard
     )
 
@@ -47,50 +48,31 @@ def stats_command(client, message):
     total_users = get_total_users()
     message.reply_text(f"📊 **Bot Stats**\n\n👥 Total Users: `{total_users}`")
 
-@app.on_message(filters.command("clone") & filters.user(OWNER_ID))
-def clone_bot(client, message):
+# ================== BROADCAST FEATURE ==================
+
+@app.on_message(filters.command("broadcast") & filters.user(OWNER_ID))
+def broadcast_message(client, message):
     if len(message.command) < 2:
-        message.reply_text("❌ Usage: `/clone <bot_token>`")
-        return
-
-    bot_token = message.command[1]
-
-    # Get bot info from Telegram API
-    response = requests.get(f"https://api.telegram.org/bot{bot_token}/getMe").json()
-    if not response.get("ok"):
-        message.reply_text("❌ Invalid Bot Token!")
+        message.reply_text("❌ Usage: `/broadcast <message>`")
         return
     
-    bot_username = response["result"]["username"]
-    
-    clone_code = f"""
-import logging
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+    broadcast_text = message.text.split(None, 1)[1]  # Extract message text
+    users = get_all_users()  # Get all users from database
 
-BOT_TOKEN = "{bot_token}"
+    success_count = 0
+    failed_count = 0
 
-app = Client("clone_bot", bot_token=BOT_TOKEN)
+    for user in users:
+        try:
+            client.send_message(user, broadcast_text)
+            success_count += 1
+        except Exception as e:
+            failed_count += 1
+            logger.error(f"Failed to send message to {user}: {e}")
 
-@app.on_message(filters.command("start"))
-def start(client, message):
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("SEX HUB", url="https://t.me/+70o-6QJJdiRjYWI1")],
-        [InlineKeyboardButton("INSTA VIRAL", url="https://t.me/+7lbq-sgx1WAwNzQ9")],
-    ])
-    message.reply_text(
-        "👋 Welcome to the cloned bot  /clone !\n\nClick the buttons below to continue:",
-        reply_markup=keyboard
-    )
+    message.reply_text(f"✅ Broadcast Completed!\n\n📤 Sent: {success_count}\n❌ Failed: {failed_count}")
 
-if __name__ == "__main__":
-    app.run()
-    """
-
-    with open(f"{bot_username}_clone.py", "w") as file:
-        file.write(clone_code)
-
-    message.reply_text(f"✅ Clone script generated for @{bot_username}! Check `{bot_username}_clone.py`.")
+# ======================================================
 
 if __name__ == "__main__":
     logger.info("Bot is starting...")
